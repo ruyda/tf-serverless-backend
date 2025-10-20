@@ -1,28 +1,11 @@
 locals {
-  domain_name = split(".", var.domain)[0] // ex: google.com -> google 
+  domain_name = split(".", var.domain)[0] // ex: google.com -> google
+  openapi3_template_json = jsondecode(file(var.openapi3_template_json_path))
 }
 
 resource "aws_api_gateway_rest_api" "backend_api" {
   name = "${local.domain_name}-site-api"
-  body = jsonencode({
-    openapi = "3.0.1"
-    info = {
-      title   = "example"
-      version = "1.0"
-    }
-    paths = {
-      "/path1" = {
-        get = {
-          x-amazon-apigateway-integration = {
-            httpMethod           = "GET"
-            payloadFormatVersion = "1.0"
-            type                 = "HTTP_PROXY"
-            uri                  = "https://ip-ranges.amazonaws.com/ip-ranges.json"
-          }
-        }
-      }
-    }
-  })
+  body = local.openapi3_template_json
 
   endpoint_configuration {
     types = ["REGIONAL"]
@@ -41,8 +24,31 @@ resource "aws_api_gateway_deployment" "backend_api_deployment" {
   }
 }
 
-resource "aws_api_gateway_stage" "example" {
+resource "aws_api_gateway_stage" "api_stage" {
   deployment_id = aws_api_gateway_deployment.backend_api_deployment.id
   rest_api_id   = aws_api_gateway_rest_api.backend_api.id
-  stage_name    = "example"
+  stage_name    = "v0.0.1-backend-api"
+}
+
+resource "aws_api_gateway_domain_name" "custom_domain" {
+  count                    = var.domain != null ? 1 : 0
+  domain_name              = "${var.api_subdomain}.${var.domain}"
+  regional_certificate_arn = var.acm_ssl_certificate_arn
+
+  endpoint_configuration {
+    types = ["REGIONAL"]
+  }
+}
+
+resource "aws_route53_record" "api_dns_record" {
+  count   = var.domain != null && var.route_53_hosted_zone_id != null ? 1 : 0
+  name    = aws_api_gateway_domain_name.custom_domain.domain_name
+  type    = "A"
+  zone_id = var.route_53_hosted_zone_id
+
+  alias {
+    evaluate_target_health = true
+    name                   = aws_api_gateway_domain_name.custom_domain.regional_domain_name
+    zone_id                = aws_api_gateway_domain_name.custom_domain.regional_zone_id
+  }
 }

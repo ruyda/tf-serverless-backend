@@ -14,10 +14,14 @@ module "serverless-backend" {
 
 | Name                        | Description                                                                     |
 |-----------------------------|---------------------------------------------------------------------------------|
-| **openapi3_template_json_path** | The string ./path/to/template.json                                          |
+| **openapi_template_json_path** | The string ./path/to/template.json                                          |
 | **domain**                      | (optional) A domain to associate with the API gateway (excluding http(s)://www.); example: google.com               |
 | **acm_ssl_certificate_arn**     | (optional) ARN of the ACM SSL certificate; required if `domain` is provided |
 | **route_53_hosted_zone_id**     | (optional) A Route 53 hosted zone to setup API gateway DNS; required if `domain` is provided and a Route 53 domain |
+
+### Module outputs
+
+TODO
 
 ### Related projects
 - S3 static front end to pair with this API gateway back end [ 🔗 view GitHub](https://github.com/ruyda/tf-cloudfront-s3-website)

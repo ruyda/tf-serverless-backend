@@ -1,5 +1,5 @@
 locals {
-  domain_name = split(".", var.domain)[0] // ex: google.com -> google
+  domain_name      = split(".", var.domain)[0] // ex: google.com -> google
   openapi_template = file(var.openapi_template_json_path)
 }
 
@@ -27,7 +27,7 @@ resource "aws_api_gateway_deployment" "backend_api_deployment" {
 resource "aws_api_gateway_stage" "api_stage" {
   deployment_id = aws_api_gateway_deployment.backend_api_deployment.id
   rest_api_id   = aws_api_gateway_rest_api.backend_api.id
-  stage_name    = "v0.0.1-backend-api"
+  stage_name    = "v1-backend-api"
 }
 
 resource "aws_api_gateway_domain_name" "custom_domain" {

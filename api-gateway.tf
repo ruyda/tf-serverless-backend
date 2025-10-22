@@ -42,13 +42,13 @@ resource "aws_api_gateway_domain_name" "custom_domain" {
 
 resource "aws_route53_record" "api_dns_record" {
   count   = var.domain != null && var.route_53_hosted_zone_id != null ? 1 : 0
-  name    = aws_api_gateway_domain_name.custom_domain.domain_name
+  name    = aws_api_gateway_domain_name.custom_domain[0].domain_name
   type    = "A"
   zone_id = var.route_53_hosted_zone_id
 
   alias {
     evaluate_target_health = true
-    name                   = aws_api_gateway_domain_name.custom_domain.regional_domain_name
-    zone_id                = aws_api_gateway_domain_name.custom_domain.regional_zone_id
+    name                   = aws_api_gateway_domain_name.custom_domain[0].regional_domain_name
+    zone_id                = aws_api_gateway_domain_name.custom_domain[0].regional_zone_id
   }
 }

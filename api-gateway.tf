@@ -1,11 +1,11 @@
 locals {
   domain_name = split(".", var.domain)[0] // ex: google.com -> google
-  openapi3_template_json = jsondecode(file(var.openapi3_template_json_path))
+  openapi_template = file(var.openapi_template_json_path)
 }
 
 resource "aws_api_gateway_rest_api" "backend_api" {
   name = "${local.domain_name}-site-api"
-  body = local.openapi3_template_json
+  body = local.openapi_template
 
   endpoint_configuration {
     types = ["REGIONAL"]

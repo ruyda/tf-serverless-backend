@@ -22,7 +22,7 @@ variable "acm_ssl_certificate_arn" {
   description = "(optional; required if `domain` has a value) ARN of the ACM SSL certificate associated with the given domain; requires `domain` variable to have a value"
 }
 
-variable "openapi3_template_json_path" {
+variable "openapi_template_json_path" {
   type        = string
   description = "the string path/to/template.json relative to this module's reference location"
 }

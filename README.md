@@ -12,9 +12,9 @@ module "serverless-backend" {
 
 ### Module inputs
 
-| Name                        | Description                                                                     |
-|-----------------------------|---------------------------------------------------------------------------------|
-| **openapi3_template_json_path** | The string ./path/to/template.json                                          |
+| Name                            | Description                                                                 |
+|---------------------------------|-----------------------------------------------------------------------------|
+| **openapi_template_json_path**  | The string ./path/to/template.json                                          |
 | **domain**                      | (optional) A domain to associate with the API gateway (excluding http(s)://www.); example: google.com              |
 | **api_subdomain**               | (optional) (optional) the subdomain used to route requests to the API gateway; required `domain` variable to have a value; default = `api` |
 | **acm_ssl_certificate_arn**     | (optional) ARN of the ACM SSL certificate; required if `domain` is provided |

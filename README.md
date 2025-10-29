@@ -23,6 +23,7 @@ module "serverless-backend" {
 ### Module outputs
 
 | Name                        | Description                        |
+|-----------------------------|------------------------------------|
 | **api_gateway_id**          |                                    |
 | **api_gateway_stage_name**  |                                    |
 | **api_gateway_domain_name** | `${var.api_subdomain}.{var.domain} |

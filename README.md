@@ -30,4 +30,4 @@ module "serverless-backend" {
 
 ### Related projects
 - S3 static front end to pair with this API gateway back end [ 🔗 view GitHub](https://github.com/ruyda/tf-cloudfront-s3-website)
-- (Coming soon) Mnecraft server (1.28) serverless hosting with EC2
+- Mnecraft server (any version) serverless hosting with EC2 [ 🔗 view GitHub](https://github.com/ruyda/tf-minecraft-server)

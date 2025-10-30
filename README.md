@@ -31,3 +31,10 @@ module "serverless-backend" {
 ### Related projects
 - S3 static front end to pair with this API gateway back end [ 🔗 view GitHub](https://github.com/ruyda/tf-cloudfront-s3-website)
 - Mnecraft server (any version) serverless hosting with EC2 [ 🔗 view GitHub](https://github.com/ruyda/tf-minecraft-server)
+
+### License
+GPL2 - keep it open source.
+
+Licensed under the GNU General Public License Version 2.0 (or later); you may not use this work except in compliance with the License. You may obtain a copy of the License in the LICENSE file, or at:
+
+https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
